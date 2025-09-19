@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     }
     try {
         // Verify the token and get the user ID
-    const { user, error: userError } = await supabase.auth.api.getUser(access_token);
+    const { user, error: userError } = await supabase.auth.api.getUser(token);
     if (userError || !user) {
       return res.status(400).json({ error: 'Invalid or expired token' });
     }
