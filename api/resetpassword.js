@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     }
     try {
        
-        const { data, error } = await supabase.auth.updateUser({password: password});
+        const { data, error } = await supabase.auth.update({password: password});
         //const { data, error } = await supabase.auth.updateUser({ password: password });
         if (error) {
             return res.status(400).json({success: false, error: error.message });
