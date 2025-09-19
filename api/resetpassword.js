@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     const { user, error: userError } = await supabase.auth.api.getUser(access_token);
         
     if (!user || userError) {
-        return res.status(200).json({ success: true, message: userError });
+        return res.status(200).json({ success: true, message: {user,userError} });
       return res.status(400).json({ error: 'Invalid or expired token' });
     }
     // Update user password as admin
