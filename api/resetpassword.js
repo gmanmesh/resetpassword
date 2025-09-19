@@ -4,11 +4,11 @@ import { createClient } from "@supabase/supabase-js";
 const supabaseUrl=process.env.SUPABASE_URL;
 const secretKey=process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-const supabase = createClient(supabaseUrl, secretKey);
+const supabase=createClient(supabaseUrl, secretKey);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
-        res.setHeader('Allow', ['POST']);
+        res.setHeader('Allow', 'POST');
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
     const { token, password } = req.body;
@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Token and password are required' });
     }
     try {
-        const { data, error } = await supabase.auth.api.updateUser(token, { password })
+        const { data, error } = await supabase.auth.api.updateUser(token, { password });
         if (error) {
             return res.status(400).json({success: false, error: error.message });
         }
