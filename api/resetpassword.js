@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Token and password are required' });
     }
     try {
-        const { data, error } = await supabase.auth.updateUser(token,{ password });
+        const { user, error } = await supabase.auth.api.updateUser(token,{ password });
         if (error) {
             return res.status(400).json({success: false, error: error.message });
         }
