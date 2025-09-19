@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     try {
         // Verify the token and get the user ID
     const { user, error: userError } = await supabaseAdmin.auth.getUser(access_token);
-    if (userError || !user) {
+    if (!user) {
       return res.status(400).json({ error: 'Invalid or expired token' });
     }
     // Update user password as admin
