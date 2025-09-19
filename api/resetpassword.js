@@ -11,20 +11,20 @@ export default async function handler(req, res) {
         res.setHeader('Allow', 'POST');
         return res.status(405).end(`Method ${req.method} Not Allowed`);
     }
-    const { token, password } = req.body;
+    const { access_token, new_password } = req.body;
 
-    if (!token || !password) {
+    if (!access_token || !new_password) {
         return res.status(400).json({ error: 'Token and password are required' });
     }
     try {
         // Verify the token and get the user ID
-    const { user, error: userError } = await supabase.auth.api.getUser(token);
+    const { user, error: userError } = await supabaseAdmin.auth.api.getUser(access_token);
     if (userError || !user) {
       return res.status(400).json({ error: 'Invalid or expired token' });
     }
     // Update user password as admin
     const { data, error } = await supabaseAdmin.auth.admin.updateUser(user.id, {
-      password: password,
+      password: new_password,
     });
         if (error) {
             return res.status(400).json({success: false, error: error.message });
