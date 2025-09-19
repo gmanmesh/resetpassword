@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Invalid or expired token' });
     }
     // Update user password as admin
-    const { data, error } = await supabaseAdmin.auth.admin.updateUser(user.id, {
+    const { data, error } = await supabaseAdmin.auth.updateUser(user.id, {
       password: new_password,
     });
         if (error) {
