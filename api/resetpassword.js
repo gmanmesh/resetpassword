@@ -18,8 +18,7 @@ export default async function handler(req, res) {
     }
     try {
         supabase.auth.onAuthStateChange(async (event, session) => {
-            if (event === 'PASSWORD_RECOVERY') {
-                const { data, error } = await supabase.auth.updateUser({password: password,});
+                const { data, error } = await supabase.auth.updateUser({password: password});
         //const { data, error } = await supabase.auth.updateUser({ password: password });
         if (error) {
             return res.status(400).json({success: false, error: error.message });
