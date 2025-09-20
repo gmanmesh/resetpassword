@@ -8,8 +8,7 @@ const supabaseAdmin = createClient(supabaseUrl, secretKey);
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
-        res.setHeader('Allow', 'POST');
-        return res.status(405).end(`Method ${req.method} Not Allowed`);
+        return res.status(405).end(`Method Not Allowed`);
     }
     const { access_token, new_password } = req.body;
 
@@ -18,7 +17,7 @@ export default async function handler(req, res) {
     }
     try {
         // Verify the token and get the user ID
-    const { data: {user}, error: userError } = await supabase.auth.getUser(access_token);
+    const { data: {user}, error: userError } = await supabaseAdmin.auth.getUser(access_token);
         
     if (!user || userError) {
         return res.status(200).json({ success: true, message: user + userError });
